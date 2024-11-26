@@ -156,14 +156,14 @@ const Page = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen w-full">
+    <div className="flex flex-col h-screen w-full p-5">
       {/* Logo */}
-      <div className="flex justify-start items-center space-x-3 p-4 lg:mb-0 mb-5">
+      <div className="flex justify-start items-center lg:mb-0 mb-5">
         <div>
-          <img src="/images/drdologo1.png" />
+          <img className="w-[70%]" src="/images/drdologo1.png" />
         </div>
         <div>
-          <img src="/images/drdologo2.png" />
+          <img className="w-[80%]" src="/images/drdologo2.png" />
         </div>
       </div>
 

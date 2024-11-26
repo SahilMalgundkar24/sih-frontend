@@ -9,5 +9,11 @@ export default function Home() {
     return <SignInButton />;
   }
 
-  return <SignOutButton signOutOptions={{ sessionId }} />;
+  return (
+    <>
+      <div className="w-full h-screen flex justify-center items-center">
+        <SignOutButton signOutOptions={{ sessionId }} />;
+      </div>
+    </>
+  );
 }
