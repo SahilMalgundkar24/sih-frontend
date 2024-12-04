@@ -15,6 +15,12 @@ const schema = yup.object().shape({
     .matches(/^[0-9]{10}$/, "Phone number must be 10 digits")
     .required("Phone Number is required"),
   email: yup.string().email("Invalid Email").required("Email is required"),
+  city: yup.string().required("City is required"),
+  state: yup.string().required("State is required"),
+  pincode: yup
+    .string()
+    .matches(/^\d{6}$/, "Pincode must be a 6-digit number")
+    .required("Pincode is required"),
   address: yup.string().required("Address is required"),
   gender: yup.string().required("Gender is required"),
 });
@@ -28,6 +34,9 @@ const Page = () => {
     email: "",
     phone: "",
     secondaryPhone: "",
+    city: "",
+    state: "",
+    pincode: "",
     address: "",
     gender: "",
   });
@@ -357,6 +366,59 @@ const Page = () => {
               {errors.address && (
                 <p className="text-red-500 text-xs mt-1">{errors.address}</p>
               )}
+            </div>
+
+            <div className="block lg:flex lg:space-x-7 space-y-3 lg:space-y-0">
+              {/* City */}
+              <div className="w-full">
+                <label className="block text-sm font-medium text-gray-700">
+                  City <span className="text-red-600">*</span>
+                </label>
+                <input
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  placeholder="Enter your city"
+                  className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+                {errors.city && (
+                  <p className="text-red-500 text-xs mt-1">{errors.city}</p>
+                )}
+              </div>
+
+              {/* State */}
+              <div className="w-full">
+                <label className="block text-sm font-medium text-gray-700">
+                  State <span className="text-red-600">*</span>
+                </label>
+                <input
+                  name="state"
+                  value={formData.state}
+                  onChange={handleChange}
+                  placeholder="Enter your state"
+                  className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+                {errors.state && (
+                  <p className="text-red-500 text-xs mt-1">{errors.state}</p>
+                )}
+              </div>
+
+              {/* Pincode */}
+              <div className="w-full">
+                <label className="block text-sm font-medium text-gray-700">
+                  Pincode <span className="text-red-600">*</span>
+                </label>
+                <input
+                  name="pincode"
+                  value={formData.pincode}
+                  onChange={handleChange}
+                  placeholder="Enter your pincode"
+                  className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+                {errors.pincode && (
+                  <p className="text-red-500 text-xs mt-1">{errors.pincode}</p>
+                )}
+              </div>
             </div>
 
             {/* Gender */}

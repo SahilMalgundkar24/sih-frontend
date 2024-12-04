@@ -55,6 +55,12 @@ const page = () => {
       lastUpdated: "12 Sep, 2024 17:30 hrs.",
       content: "Content for Shortlisting Status",
     },
+    {
+      title: "Public Notice",
+      lastUpdated: "",
+      content:
+        "Requirement of Valid GATE Score for Direct Recruitment of Scientist 'B' in DRDO",
+    },
   ];
   return (
     <>
@@ -79,20 +85,10 @@ const page = () => {
         </div>
 
         <Navbar />
-        {/* <div className="max-w-2xl mx-auto space-y-4">
-          {cards.map((card, index) => (
-            <StatusCard
-              key={index}
-              title={card.title}
-              lastUpdated={card.lastUpdated}
-              content={card.content}
-            />
-          ))}
-        </div> */}
 
         <div className="w-full py-5 flex justify-between gap-3">
           <div className="w-1/3 flex flex-col gap-3">
-            {cards.map((card, index) => (
+            {cards.slice(0, 3).map((card, index) => (
               <StatusCard
                 key={index}
                 title={card.title}
@@ -101,17 +97,40 @@ const page = () => {
               />
             ))}
           </div>
-          <div className="w-1/3 p-2 bg-slate-500"></div>
-          <div className="w-1/3 p-2 bg-slate-500"></div>
-        </div>
-
-        <div className="flex flex-col items-center">
-          <h1 className="text-4xl">Landing Page</h1>
-          <Link href="/forms">
-            <button className="px-6 py-2 bg-blue-500 text-white rounded-lg mt-7">
-              Form 1
-            </button>
-          </Link>
+          <div className="w-1/3 flex flex-col gap-3">
+            {cards.slice(3, 6).map((card, index) => (
+              <StatusCard
+                key={index}
+                title={card.title}
+                lastUpdated={card.lastUpdated}
+                content={card.content}
+              />
+            ))}
+          </div>
+          <div className="w-1/3 flex flex-col gap-3">
+            {cards.slice(6, 7).map((card, index) => (
+              <StatusCard
+                key={index}
+                title={card.title}
+                lastUpdated={card.lastUpdated}
+                content={card.content}
+              />
+            ))}
+            <div className="w-full bg-blue-100 p-3 rounded-lg">
+              <h1 className="text-xl font-semibold mb-2">Disclaimer</h1>
+              <p className="mb-2">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Voluptate, corrupti odit esse quisquam, debitis ab maxime ipsum
+                sint hic error, asperiores exercitationem earum aspernatur
+                suscipit! Ipsa voluptates voluptatem illum tempora?
+              </p>
+              <Link href="/forms">
+                <button className="px-6 py-2 bg-blue-500 text-white rounded-lg mt-7">
+                  Form 1
+                </button>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </>
