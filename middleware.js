@@ -7,7 +7,7 @@ export default clerkMiddleware(async (auth, req) => {
   // Exclude authentication routes from middleware logic
   const publicRoutes = ["/sign-in", "/sign-up", "/sign-out"];
   if (publicRoutes.some((route) => req.nextUrl.pathname.startsWith(route))) {
-    return NextResponse.next(); // Skip middleware for these routes
+    return NextResponse.next();
   }
 
   // Redirect admin user to admin dashboard
