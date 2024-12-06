@@ -4,20 +4,19 @@ import { NextResponse } from "next/server";
 export default clerkMiddleware(async (auth, req) => {
   const user = await auth();
 
-  // Exclude authentication routes from middleware logic
   const publicRoutes = ["/sign-in", "/sign-up", "/sign-out"];
   if (publicRoutes.some((route) => req.nextUrl.pathname.startsWith(route))) {
     return NextResponse.next();
   }
 
-  // Redirect admin user to admin dashboard
-  if (user.userId === "user_2pLWCLIpUzWB234JRjJtAAbJjUb") {
+  const adminUserId = process.env.ADMIN_USER_ID;
+
+  if (user.userId === adminUserId) {
     if (!req.nextUrl.pathname.startsWith("/admin/dashboard")) {
       return NextResponse.redirect(new URL("/admin/dashboard", req.url));
     }
   }
 
-  // Redirect unauthenticated users to sign-in
   if (!user.userId) {
     return NextResponse.redirect(new URL("/sign-in", req.url));
   }

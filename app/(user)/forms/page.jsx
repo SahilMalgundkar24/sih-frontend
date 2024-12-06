@@ -49,7 +49,7 @@ const Page = () => {
     aadhaarVerified: false,
     panVerified: false,
     gateMarksheetVerified: false,
-    ewsCertificateVerified: false, // Fixed the key name to match with others
+    ewsCertificateVerified: false,
   });
 
   const [errors, setErrors] = useState({});
@@ -66,13 +66,12 @@ const Page = () => {
       setDocumentData((prevState) => ({
         ...prevState,
         [document]: file,
-        [`${document}Verified`]: false, // Reset verification when new file is uploaded
+        [`${document}Verified`]: false,
       }));
     }
   };
 
   const handleVerify = (document) => {
-    // Check if document exists before allowing verification
     if (!documentData[document]) {
       alert(`Please upload ${document} document first`);
       return;
@@ -89,7 +88,7 @@ const Page = () => {
       documentData.aadhaarVerified &&
       documentData.panVerified &&
       documentData.gateMarksheetVerified &&
-      documentData.ewsCertificateVerified // Fixed the key name
+      documentData.ewsCertificateVerified
     );
   };
 
@@ -150,7 +149,6 @@ const Page = () => {
         return;
       }
 
-      // If all validations pass, proceed with submission
       console.log("Final Submission:", {
         formData,
         documentData,
@@ -166,7 +164,6 @@ const Page = () => {
 
   return (
     <div className="flex flex-col h-screen w-full p-5">
-      {/* Logo */}
       <div className="flex justify-start items-center lg:mb-0 mb-5">
         <div>
           <img className="w-[70%]" src="/images/drdologo1.png" />
@@ -222,7 +219,6 @@ const Page = () => {
         </div>
       </div>
 
-      {/* Form */}
       <div className="flex w-full justify-center items-center flex-grow lg:px-4 py-4 px-2">
         {step === 1 && (
           <form onSubmit={handleSubmit} className="w-full p-6 space-y-4">
@@ -312,10 +308,25 @@ const Page = () => {
                   <p className="text-red-500 text-xs mt-1">{errors.dob}</p>
                 )}
               </div>
+              <div className="w-full">
+                <label className="block text-sm font-medium text-gray-700">
+                  Phone Number <span className="text-red-600">*</span>
+                </label>
+                <input
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="Enter your phone number"
+                  className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+                {errors.phone && (
+                  <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+                )}
+              </div>
             </div>
 
             {/* Phone Number */}
-            <div className="block lg:flex lg:space-x-7 space-y-3 lg:space-y-0">
+            {/* <div className="block lg:flex lg:space-x-7 space-y-3 lg:space-y-0">
               <div className="w-full">
                 <label className="block text-sm font-medium text-gray-700">
                   Phone Number <span className="text-red-600">*</span>
@@ -348,7 +359,7 @@ const Page = () => {
                   </p>
                 )}
               </div>
-            </div>
+            </div> */}
 
             {/* Address */}
             <div>

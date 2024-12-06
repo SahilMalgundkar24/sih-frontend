@@ -139,11 +139,9 @@ const DashboardContent = () => (
       <h1 className="text-4xl">✨POWER BI SHIT✨</h1>
     </div>
 
-    {/* Recent Applicants */}
     <div className=" rounded-lg">
       <h2 className="text-2xl font-medium mb-6">Recent Applicants</h2>
       <div className="space-y-4">
-        {/* Header */}
         <div className="flex justify-between text-left text-[#C0C0C0] text-sm font-medium">
           <div className="w-1/4">Name</div>
           <div className="w-[15%]">Status</div>
@@ -151,7 +149,6 @@ const DashboardContent = () => (
           <div className="w-[30%]">Phone</div>
         </div>
 
-        {/* Applicant List */}
         {recentApplicants.map((applicant) => (
           <div
             key={applicant.id}
@@ -184,11 +181,9 @@ const AppliedCandidatesContent = () => (
       <UserButton showName />
     </div>
 
-    {/* All Candidates */}
     <div className="rounded-lg">
       <h2 className="text-2xl font-medium mb-6">All Candidates</h2>
       <div className="space-y-4">
-        {/* Header */}
         <div className="flex justify-between text-left text-[#C0C0C0] text-sm font-medium">
           <div className="w-1/4">Name</div>
           <div className="w-[15%]">Status</div>
@@ -196,7 +191,6 @@ const AppliedCandidatesContent = () => (
           <div className="w-[30%]">Phone</div>
         </div>
 
-        {/* Candidate List */}
         {allCandidates.map((candidate) => (
           <div
             key={candidate.id}
@@ -281,6 +275,9 @@ const Page = () => {
           <h2 className="text-lg font-semibold">Quick Actions</h2>
           <button className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
             Generate Report
+          </button>
+          <button className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+            Feedback
           </button>
           <button className="w-full px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition-colors">
             Create new form
