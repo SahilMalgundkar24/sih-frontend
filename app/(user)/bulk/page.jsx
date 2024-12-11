@@ -1,137 +1,159 @@
 "use client";
-import React, { useState, useRef } from "react";
-import {
-  ArrowUpTrayIcon,
-  DocumentIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import Navbar from "@/app/components/Navbar";
 
-const page = () => {
-  const [isDragging, setIsDragging] = useState(false);
+import axios from "axios";
+import React, { useState } from "react";
+import { useDropzone } from "react-dropzone";
+
+const classNames = [
+  {
+    name: "Aadhar",
+    style: "bg-red-300"
+  },
+  {
+    name: "Pan",
+    style: "bg-blue-300"
+  },
+  {
+    name: "Gate Score Card",
+    style: "bg-grey-600"
+  },
+  {
+    name: "Caste Certificate",
+    style: "bg-yellow-300"
+  },
+  {
+    name: "Income Certificate",
+    style: "bg-green-300"
+  },
+  {
+    name: "Fail",
+    style: "bg-black/10"
+  }
+]
+
+const BulkFileUploader = () => {
   const [files, setFiles] = useState([]);
-  const fileInputRef = useRef(null);
+  const [classificationResults, setClassificationResults] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleDragEnter = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(true);
+  const onDrop = (acceptedFiles) => {
+    setFiles(acceptedFiles); // Store selected files
   };
 
-  const handleDragLeave = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: "image/*", // Restrict to image files
+    multiple: true, // Allow multiple files
+  });
+
+  const getClassStyle = (className) => {
+    const classObj = classNames.find(c => c.name == className);
+    return classObj ? classObj.style : "bg-gray-200"; // Fallback style
   };
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+
+  const uploadFiles = async () => {
+    if (!files.length) return alert("No files selected!");
+    setLoading(true);
+
+    // Prepare FormData for backend
+    const formData = new FormData();
+    files.forEach((file) => formData.append("files", file));
+
+    try {
+      const formData = new FormData();
+      files.forEach((file) => formData.append("files", file));
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/verify/bulk/`, formData);
+
+      const results = response.data.results;
+      setClassificationResults({ results });
+
+
+    } catch (error) {
+      console.log("Error uploading files:", error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-
-    const droppedFiles = Array.from(e.dataTransfer.files);
-    setFiles((prev) => [...prev, ...droppedFiles]);
-  };
-
-  const handleFileInput = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-    setFiles((prev) => [...prev, ...selectedFiles]);
-  };
-
-  const removeFile = (indexToRemove) => {
-    setFiles(files.filter((_, index) => index !== indexToRemove));
-  };
   return (
-    <div className="px-3">
-      <div className="w-full h-auto py-2 flex items-center justify-between">
-        <div className="flex justify-start items-center lg:mb-0 mb-5">
-          <div className="">
-            <img className="w-[70%]" src="/images/drdologo1.png" />
-          </div>
-          <div>
-            <img className="w-[80%]" src="/images/drdologo2.png" />
-          </div>
-        </div>
-        <div>
-          <img className="w-[25%]" src="/images/satyamev.png" />
-        </div>
+    <div>
+      {/* Drag-and-Drop Area */}
 
-        <div className="flex flex-col gap-3">
-          <img className="h-[50px] w-[80%]" src="/images/flag.png" />
+      {!classificationResults && <div
+        {...getRootProps()}
+        style={{
+          border: "2px dashed #ccc",
+          borderRadius: "10px",
+          padding: "20px",
+          textAlign: "center",
+          backgroundColor: isDragActive ? "#f0f0f0" : "#fafafa",
+        }}
+      >
+        <input {...getInputProps()} />
+        {isDragActive ? (
+          <p>Drop the files here...</p>
+        ) : (
+          <p>Drag and drop some files here, or click to select files</p>
+        )}
+      </div>}
+
+      {/* File Preview */}
+      {files.length > 0 && (
+        <div style={{ marginTop: "20px" }} className="w-2/3 m-auto">
+          <h4>Files Selected:</h4>
+          <ul>
+            {files.map((file, index) => (
+              <li key={index}>{file.name}</li>
+            ))}
+          </ul>
         </div>
-      </div>
+      )}
 
-      <Navbar />
-
-      <div className="w-full mt-7 py-5 flex justify-between gap-3">
-        <div className="w-full">
-          <div
-            className={`w-full min-h-[200px] border-2 border-dashed rounded-lg p-6 flex flex-col items-center justify-center cursor-pointer transition-colors ${
-              isDragging
-                ? "border-blue-500 bg-blue-50"
-                : "border-gray-300 hover:border-gray-400"
-            }`}
-            onDragEnter={handleDragEnter}
-            onDragLeave={handleDragLeave}
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-            onClick={() => fileInputRef.current?.click()}
+      {/* Upload Button */}
+      <div className="w-full flex items-center justify-center gap-24">
+        { !classificationResults && <button
+          onClick={uploadFiles}
+          style={{
+            marginTop: "20px",
+            padding: "10px 20px",
+            backgroundColor: "#007bff",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+          className="w-60 m-auto text-center"
+          disabled={loading}
+        >
+          {loading ? "Uploading..." : "Classify Files"}
+        </button>}
+        {classificationResults && <div className="w-full flex items-center justify-center">
+          <input
+            type="file"
+            multiple /
           >
-            <input
-              type="file"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleFileInput}
-              multiple
-            />
-            <ArrowUpTrayIcon className="w-12 h-12 text-gray-400 mb-4" />
-            <p className="text-lg font-medium text-gray-700 mb-2">
-              Drag & Drop files here
-            </p>
-            <p className="text-sm text-gray-500">or click to select files</p>
-          </div>
-
-          {files.length > 0 && (
-            <div className="mt-6">
-              <h3 className="text-lg font-medium text-gray-700 mb-4">
-                Uploaded Files ({files.length})
-              </h3>
-              <div className="space-y-3">
-                {files.map((file, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <DocumentIcon className="w-5 h-5 text-gray-500" />
-                      <span className="text-sm text-gray-700">{file.name}</span>
-                      <span className="text-xs text-gray-500">
-                        ({(file.size / 1024 / 1024).toFixed(2)} MB)
-                      </span>
-                    </div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        removeFile(index);
-                      }}
-                      className="text-red-500 hover:text-red-700 text-sm"
-                    >
-                      <XMarkIcon className="w-5 h-5" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+        </div>}
       </div>
+
+      {/* Classification Results */}
+      {classificationResults && (
+        <div style={{ marginTop: "20px" }}>
+          <h4 className="text-center">Classification Results:</h4>
+          <ul>
+            {classificationResults.results.map((result, index) => (
+              <li key={index} className="flex justify-between w-2/3 m-auto">
+                File {index + 1}: {result.class} (Confidence:{" "}
+                {result.confidence_score})
+                <button type="button" className={`p-2 rounded ${getClassStyle(result.class)}`}>{result.class}</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
 
-export default page;
+export default BulkFileUploader;
