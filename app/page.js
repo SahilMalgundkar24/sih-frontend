@@ -149,6 +149,14 @@ const page = () => {
             ))}
           </div>
         </div>
+        <div className="mb-7">
+          <h1 className="text-3xl font-semibold poppins">Bulk Documents</h1>
+          <Link href="/bulk">
+            <button className="px-6 py-2 bg-blue-500 text-white rounded-lg mt-7">
+              Bulk Documents
+            </button>
+          </Link>
+        </div>
       </div>
     </>
   );
