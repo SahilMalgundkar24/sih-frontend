@@ -72,6 +72,26 @@ const Page = () => {
     }
   };
 
+  const handleClick = (image) => {
+    const docData = new FormData();
+    docData.append("file", image); // Corrected to append the image file
+    console.log("Sending image data:", image);
+
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    axios
+      .post(`${apiUrl}/verify/classify/`, docData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Ensure correct content type for file upload
+        },
+      })
+      .then((response) => {
+        console.log("Response:", response);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  };
+
   const handleVerify = (document) => {
     if (!documentData[document]) {
       alert(`Please upload ${document} document first`);
@@ -104,16 +124,17 @@ const Page = () => {
     if (step === 1) {
       try {
         await schema.validate(formData, { abortEarly: false });
-        // const newData = new FormData();
+        const newData = new FormData();
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        console.log(apiUrl);
 
-        const newData = {
+        const response = await axios.post(`${apiUrl}/api/applications/create`, {
           username: "rushi",
           name: "Software_developer_at_Drdo",
-          ...formData,
-        };
+          data: formData,
+        });
 
-        axios.post(`${apiUrl}/api/create`, newData);
+        console.log(response.data);
 
         setErrors({});
         console.log("Personal Details", formData);
@@ -121,10 +142,11 @@ const Page = () => {
 
         setStep(2);
       } catch (validationErrors) {
+        console.log(validationErrors);
         const errorMessages = {};
-        validationErrors.inner.forEach((error) => {
-          errorMessages[error.path] = error.message;
-        });
+        // validationErrors.inner.forEach((error) => {
+        //   errorMessages[error.path] = error.message;
+        // });
         setErrors(errorMessages);
       }
     } else if (step === 2) {
@@ -523,7 +545,7 @@ const Page = () => {
                   />
                   <button
                     type="button"
-                    onClick={() => handleVerify("aadhaar")}
+                    onClick={() => handleClick(documentData.aadhaar)}
                     className={`ml-5 py-2 px-5 font-medium rounded-md focus:outline-none ${
                       documentData.aadhaarVerified
                         ? "bg-green-600 hover:bg-green-700"
@@ -571,7 +593,7 @@ const Page = () => {
                   />
                   <button
                     type="button"
-                    onClick={() => handleVerify("pan")}
+                    onClick={() => handleClick(documentData.pan)}
                     className={`ml-5 py-2 px-5 font-medium rounded-md focus:outline-none ${
                       documentData.panVerified
                         ? "bg-green-600 hover:bg-green-700"
@@ -619,7 +641,7 @@ const Page = () => {
                   />
                   <button
                     type="button"
-                    onClick={() => handleVerify("gateMarksheet")}
+                    onClick={() => handleClick(documentData.gateMarksheet)}
                     className={`ml-5 py-2 px-5 font-medium rounded-md focus:outline-none ${
                       documentData.gateMarksheetVerified
                         ? "bg-green-600 hover:bg-green-700"
@@ -667,7 +689,7 @@ const Page = () => {
                   />
                   <button
                     type="button"
-                    onClick={() => handleVerify("ewsCertificate")}
+                    onClick={() => handleClick(documentData.ewsCertificate)}
                     className={`ml-5 py-2 px-5 font-medium rounded-md focus:outline-none ${
                       documentData.ewsCertificateVerified
                         ? "bg-green-600 hover:bg-green-700"
