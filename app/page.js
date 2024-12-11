@@ -54,10 +54,13 @@ const page = () => {
   return (
     <>
       <div className="px-3">
-        <div className="w-full h-auto py-2 flex items-center justify-between">
+        <div className="hidden w-full h-auto py-2 lg:flex items-center justify-between">
           <div className="flex justify-start items-center lg:mb-0 mb-5">
             <div className="">
-              <img className="w-[70%]" src="/images/drdologo1.png" />
+              <img
+                className="w-[100%] lg:w-[70%]"
+                src="/images/drdologo1.png"
+              />
             </div>
             <div>
               <img className="w-[80%]" src="/images/drdologo2.png" />
@@ -72,11 +75,20 @@ const page = () => {
             <img className="h-[50px] w-[80%]" src="/images/flag.png" />
           </div>
         </div>
-
+        <div className="py-5 w-full items-center flex flex-col lg:hidden">
+          <div className="flex w-full justify-between">
+            <img className="w-[20%]" src="/images/drdologo1.png" />
+            <img className="w-[50%]" src="/images/drdologo2.png" />
+            <img className="w-[15%]" src="/images/satyamev.png" />
+          </div>
+          <div className="mt-7 flex justify-end w-full">
+            <UserButton showName />
+          </div>
+        </div>
         <Navbar />
 
-        <div className="w-full py-5 flex justify-between gap-3">
-          <div className="w-1/3 flex flex-col gap-3">
+        <div className="w-full py-5 block lg:flex justify-between gap-3">
+          <div className="mb-3 lg:mb-0 w-full lg:w-1/3 flex flex-col gap-3">
             <div className="w-full bg-blue-100 p-3 rounded-lg">
               <h1 className="text-xl font-semibold mb-2">Disclaimer</h1>
               <p className="mb-2">
@@ -107,7 +119,7 @@ const page = () => {
               </Link>
             </div>
           </div>
-          <div className="w-1/3 flex flex-col gap-3">
+          <div className="mb-3 lg:mb-0 w-full lg:w-1/3 flex flex-col gap-3">
             <div className="w-full bg-blue-100 p-3 rounded-lg">
               <h1 className="text-xl font-semibold mb-2">Disclaimer</h1>
               <p className="mb-2">
@@ -137,8 +149,10 @@ const page = () => {
               </Link>
             </div>
           </div>
-          <div className="w-1/3 flex flex-col gap-3">
-            <h1 className="text-3xl font-semibold poppins">Public Notices</h1>
+          <div className="w-full lg:w-1/3 flex flex-col gap-3">
+            <h1 className="mt-7 lg:mt-0 text-3xl font-semibold poppins">
+              Public Notices
+            </h1>
             {cards.map((card, index) => (
               <StatusCard
                 key={index}

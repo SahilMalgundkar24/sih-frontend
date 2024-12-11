@@ -203,7 +203,7 @@ const Page = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen w-full p-5">
+    <div className="flex flex-col h-screen w-full p-3 lg:p-5">
       <div className="flex justify-start items-center lg:mb-0 mb-5">
         <div>
           <img className="w-[70%]" src="/images/drdologo1.png" />
@@ -278,9 +278,12 @@ const Page = () => {
       </div>
 
       <div className="w-full flex items-center justify-center">
-        <div className="flex w-full lg:max-w-5xl justify-center items-center flex-grow lg:px-4 py-4 px-2">
+        <div className="flex w-full lg:max-w-5xl justify-center items-center flex-grow lg:px-4 py-4">
           {step === 1 && (
-            <form onSubmit={handleSubmit} className="w-full p-6 space-y-4">
+            <form
+              onSubmit={handleSubmit}
+              className="w-full px-3 py-6 space-y-4"
+            >
               {/* Step 1 Form */}
               <div className="block lg:flex lg:space-x-7 space-y-3 lg:space-y-0">
                 {/* First Name, Middle Name, Last Name */}
@@ -529,7 +532,10 @@ const Page = () => {
           )}
 
           {step === 2 && (
-            <form onSubmit={handleSubmit} className="w-full p-6 space-y-4">
+            <form
+              onSubmit={handleSubmit}
+              className="w-full px-3 py-6 space-y-4"
+            >
               {/* Aadhaar Upload */}
               <div className="w-full">
                 <label className="block text-sm font-medium text-gray-700">
