@@ -136,7 +136,7 @@ const DashboardContent = () => (
     </div>
 
     <div className="w-full h-48 rounded-xl flex justify-center items-center border-2 border-[#DEDEDE] my-7">
-      <h1 className="text-4xl">✨POWER BI SHIT✨</h1>
+      <h1 className="text-4xl">POWER BI</h1>
     </div>
 
     <div className=" rounded-lg">
