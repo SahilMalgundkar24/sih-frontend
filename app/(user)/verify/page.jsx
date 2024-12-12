@@ -63,7 +63,7 @@ const page = () => {
       const formData = new FormData();
       files.forEach((file) => formData.append("files", file));
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/verify/bulk/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/final/bulk/`,
         formData
       );
 
