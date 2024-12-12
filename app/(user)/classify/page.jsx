@@ -4,17 +4,17 @@ import Navbar from "@/app/components/Navbar";
 import axios from "axios";
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
+import ReactMarkdown from "react-markdown";
 
 
 const classNames = [
   { name: "Aadhar", style: "bg-red-300" },
   { name: "Pan", style: "bg-blue-300" },
-  { name: "Gate Score Card", style: "bg-gray-300" },
-  { name: "Caste Certificate", style: "bg-yellow-300" },
+  { name: "Gate Score Card", style: "bg-yellow-300" },
+  { name: "Caste Certificate", style: "bg-aqua-300" },
   { name: "Income Certificate", style: "bg-green-300" },
   { name: "Fail", style: "bg-black/10" },
   { name: "10th", style: "bg-pink-400" },
-  { name: "Fail", style: "bg-black/10" },
 ];
 
 const BulkFileUploader = () => {
@@ -140,9 +140,9 @@ const BulkFileUploader = () => {
                           <p className="text-lg font-medium">File {index + 1}:</p>
                           <p className="text-sm text-gray-600">{result.fileName}</p>
                           <p className="mt-2 text-gray-800">Extracted Text:</p>
-                          <pre className="bg-gray-200 p-3 rounded text-sm text-gray-700">
+                          <ReactMarkdown className="bg-gray-200 p-3 rounded text-sm text-gray-700">
                             {result.ocr_text}
-                          </pre>
+                          </ReactMarkdown>
                         </div>
 
                         {/* File preview */}

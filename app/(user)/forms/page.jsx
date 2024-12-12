@@ -2,6 +2,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
+import ReactMarkdown from "react-markdown";
 
 const schema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
@@ -42,6 +43,21 @@ const Page = () => {
     gender: "",
   });
 
+  const [verifiedDocuments, setVerifiedDocuments] = useState({
+    aadhaar: false,
+    pan: false,
+    gateMarksheet: false,
+    eqMarksheet: false,
+    casteCertificate: false,
+  });
+
+  const [aadharData, setAadharData] = useState();
+  const [pan, setPan] = useState();
+  const [gate, setGate] = useState();
+  const [caste, setCaste] = useState();
+  const [marksheet, setMarksheet] = useState();
+
+
   const [documentData, setDocumentData] = useState({
     aadhaar: null,
     pan: null,
@@ -72,24 +88,40 @@ const Page = () => {
     }
   };
 
-  const handleClick = (image) => {
+  
+
+  const handleClick = async(image, name) => {
     const docData = new FormData();
     docData.append("file", image); // Corrected to append the image file
     console.log("Sending image data:", image);
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    axios
-      .post(`${apiUrl}/verify/classify/`, docData, {
+    const response = await axios
+      .post(`${apiUrl}/final/`, docData, {
         headers: {
           "Content-Type": "multipart/form-data", // Ensure correct content type for file upload
         },
       })
-      .then((response) => {
-        console.log("Response:", response);
-      })
       .catch((error) => {
         console.log("Error:", error);
       });
+      console.log(response.data);
+      const class_name = response.data.class.toLowerCase() === name.toLowerCase();
+      if(!class_name) {
+        alert("The document does not match the required document, Please Reupload the Document");
+        return;
+      }
+      if(class_name === "Aadhar")
+        setAadharData(response.data.ocr_text)
+      else if(class_name == "Pan")
+        setPan(response.data.ocr_text)
+      else if(class_name == "Gate Score Card")
+        setGate(response.data.ocr_text)
+      else if(class_name == "Caste Certificate")
+        setCaste(response.data.ocr_text)
+      else if(class_name == "10th")
+        setMarksheet(response.data.ocr_text)
+
   };
 
   const handleVerify = (document) => {
@@ -541,6 +573,7 @@ const Page = () => {
                 <label className="block text-sm font-medium text-gray-700">
                   Upload Aadhaar <span className="text-red-600">*</span>
                 </label>
+                <ReactMarkdown className="w-full p-4">{aadharData}</ReactMarkdown>
                 <div className="w-full flex items-center">
                   <input
                     type="file"
@@ -549,9 +582,10 @@ const Page = () => {
                     onChange={(e) => handleDocumentChange(e, "aadhaar")}
                     className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
+                  
                   <button
                     type="button"
-                    onClick={() => handleClick(documentData.aadhaar)}
+                    onClick={() => handleClick(documentData.aadhaar, "Aadhar")}
                     className={`ml-5 py-2 px-5 font-medium rounded-md focus:outline-none ${
                       documentData.aadhaarVerified
                         ? "bg-green-600 hover:bg-green-700"
@@ -589,6 +623,7 @@ const Page = () => {
                 <label className="block text-sm font-medium text-gray-700">
                   Upload PAN <span className="text-red-600">*</span>
                 </label>
+                <ReactMarkdown className="w-full p-4">{pan}</ReactMarkdown>
                 <div className="w-full flex items-center">
                   <input
                     type="file"
@@ -599,7 +634,7 @@ const Page = () => {
                   />
                   <button
                     type="button"
-                    onClick={() => handleClick(documentData.pan)}
+                    onClick={() => handleClick(documentData.pan, "pan")}
                     className={`ml-5 py-2 px-5 font-medium rounded-md focus:outline-none ${
                       documentData.panVerified
                         ? "bg-green-600 hover:bg-green-700"
@@ -635,8 +670,9 @@ const Page = () => {
               {/* Gate Marksheet Upload */}
               <div className="w-full">
                 <label className="block text-sm font-medium text-gray-700">
-                  Upload Gate Marksheet <span className="text-red-600">*</span>
+                  Upload 10th Marksheet <span className="text-red-600">*</span>
                 </label>
+                <ReactMarkdown className="w-full p-4">{marksheet}</ReactMarkdown>
                 <div className="w-full flex items-center">
                   <input
                     type="file"
@@ -647,7 +683,7 @@ const Page = () => {
                   />
                   <button
                     type="button"
-                    onClick={() => handleClick(documentData.gateMarksheet)}
+                    onClick={() => handleClick(documentData.gateMarksheet, "10th")}
                     className={`ml-5 py-2 px-5 font-medium rounded-md focus:outline-none ${
                       documentData.gateMarksheetVerified
                         ? "bg-green-600 hover:bg-green-700"
@@ -683,8 +719,9 @@ const Page = () => {
               {/* EWS Certificate Upload */}
               <div className="w-full">
                 <label className="block text-sm font-medium text-gray-700">
-                  Upload EWS Certificate <span className="text-red-600">*</span>
+                  GATE SCORECARD <span className="text-red-600">*</span>
                 </label>
+                <ReactMarkdown className="w-full p-4">{gate}</ReactMarkdown>
                 <div className="w-full flex items-center">
                   <input
                     type="file"
@@ -695,7 +732,7 @@ const Page = () => {
                   />
                   <button
                     type="button"
-                    onClick={() => handleClick(documentData.ewsCertificate)}
+                    onClick={() => handleClick(documentData.ewsCertificate, "Gate Score Card")}
                     className={`ml-5 py-2 px-5 font-medium rounded-md focus:outline-none ${
                       documentData.ewsCertificateVerified
                         ? "bg-green-600 hover:bg-green-700"

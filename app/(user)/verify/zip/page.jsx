@@ -14,7 +14,7 @@ const classNames = [
   { name: "Fail", style: "bg-black/10" },
 ];
 
-const Verify = () => {
+const VerifyBulk = () => {
   const [files, setFiles] = useState([]);
   const [classificationResults, setClassificationResults] = useState();
   const [loading, setLoading] = useState(false);
@@ -43,7 +43,7 @@ const Verify = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/verify/bulk/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/verify/bulk/zip`,
         formData
       );
 
@@ -178,4 +178,4 @@ const Verify = () => {
   );
 };
 
-export default Verify;
+export default VerifyBulk;
