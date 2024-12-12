@@ -163,11 +163,22 @@ const page = () => {
             ))}
           </div>
         </div>
-        <div className="mb-7">
-          <h1 className="text-3xl font-semibold poppins">Bulk Documents</h1>
-          <Link href="/bulk">
+        <div className="mb-7 flex justify-around">
+          <Link href="/classify">
             <button className="px-6 py-2 bg-blue-500 text-white rounded-lg mt-7">
-              Bulk Documents
+              Classify
+            </button>
+          </Link>
+
+          <Link href="/verify">
+            <button className="px-6 py-2 bg-blue-500 text-white rounded-lg mt-7">
+              Verify
+            </button>
+          </Link>
+
+          <Link href="/ocr">
+            <button className="px-6 py-2 bg-blue-500 text-white rounded-lg mt-7">
+              OCR
             </button>
           </Link>
         </div>

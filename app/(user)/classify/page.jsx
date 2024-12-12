@@ -34,7 +34,7 @@ const classNames = [
 
 const BulkFileUploader = () => {
   const [files, setFiles] = useState([]);
-  const [classificationResults, setClassificationResults] = useState(null);
+  const [classificationResults, setClassificationResults] = useState();
   const [loading, setLoading] = useState(false);
 
   const onDrop = (acceptedFiles) => {
