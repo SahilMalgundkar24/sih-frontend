@@ -24,6 +24,9 @@ const schema = yup.object().shape({
     .required("Pincode is required"),
   address: yup.string().required("Address is required"),
   gender: yup.string().required("Gender is required"),
+  aadhaarNumber: yup.string().required("Aadhaar Number is required"),
+  panNumber: yup.string().required("Pan Number is required"),
+  gateRank: yup.string().required("Gate Rank is required"),
 });
 
 const Page = () => {
@@ -40,6 +43,9 @@ const Page = () => {
     pincode: "",
     address: "",
     gender: "",
+    aadhaarNumber: "",
+    panNumber: "",
+    gateRank: "",
   });
 
   const [documentData, setDocumentData] = useState({
@@ -389,42 +395,6 @@ const Page = () => {
                 </div>
               </div>
 
-              {/* Phone Number */}
-              {/* <div className="block lg:flex lg:space-x-7 space-y-3 lg:space-y-0">
-              <div className="w-full">
-                <label className="block text-sm font-medium text-gray-700">
-                  Phone Number <span className="text-red-600">*</span>
-                </label>
-                <input
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="Enter your phone number"
-                  className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                />
-                {errors.phone && (
-                  <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
-                )}
-              </div>
-              <div className="w-full">
-                <label className="block text-sm font-medium text-gray-700">
-                  Alternate Phone Number
-                </label>
-                <input
-                  name="secondaryPhone"
-                  value={formData.secondaryPhone}
-                  onChange={handleChange}
-                  placeholder="Enter your second number"
-                  className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                />
-                {errors.secondaryPhone && (
-                  <p className="text-red-500 text-xs mt-1">
-                    {errors.secondaryPhone}
-                  </p>
-                )}
-              </div>
-            </div> */}
-
               {/* Address */}
               <div>
                 <label className="block text-sm font-medium text-gray-700">
@@ -493,6 +463,63 @@ const Page = () => {
                   {errors.pincode && (
                     <p className="text-red-500 text-xs mt-1">
                       {errors.pincode}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="block lg:flex lg:space-x-7 space-y-3 lg:space-y-0">
+                {/* Aadhaar, PAN, Gate Rank */}
+                <div className="w-full">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Aadhar Number <span className="text-red-600">*</span>
+                  </label>
+                  <input
+                    name="aadhaarNumber"
+                    value={formData.aadhaarNumber}
+                    onChange={handleChange}
+                    placeholder="Enter your Aadhaar Number"
+                    className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  />
+                  {errors.aadhaarNumber && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.aadhaarNumber}
+                    </p>
+                  )}
+                </div>
+
+                <div className="w-full">
+                  <label className="block text-sm font-medium text-gray-700">
+                    PAN Number <span className="text-red-600">*</span>
+                  </label>
+                  <input
+                    name="panNumber"
+                    value={formData.panNumber}
+                    onChange={handleChange}
+                    placeholder="Enter your PAN Number"
+                    className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  />
+                  {errors.panNumber && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.panNumber}
+                    </p>
+                  )}
+                </div>
+
+                <div className="w-full">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Gate Rank <span className="text-red-600">*</span>
+                  </label>
+                  <input
+                    name="gateRank"
+                    value={formData.gateRank}
+                    onChange={handleChange}
+                    placeholder="Enter your Gate Rank"
+                    className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  />
+                  {errors.gateRank && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.gateRank}
                     </p>
                   )}
                 </div>
