@@ -90,12 +90,13 @@ const page = () => {
         <div className="w-full py-5 block lg:flex justify-between gap-3">
           <div className="mb-3 lg:mb-0 w-full lg:w-1/3 flex flex-col gap-3">
             <div className="w-full bg-blue-100 p-3 rounded-lg">
-              <h1 className="text-xl font-semibold mb-2">Disclaimer</h1>
+              <h1 className="text-xl font-semibold mb-2">Scientist 'B'</h1>
               <p className="mb-2">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Voluptate, corrupti odit esse quisquam, debitis ab maxime ipsum
-                sint hic error, asperiores exercitationem earum aspernatur
-                suscipit! Ipsa voluptates voluptatem illum tempora?
+                This is the entry-level position for fresh graduates in
+                engineering or science disciplines. It offers opportunities to
+                work on cutting-edge research and development projects in
+                various fields like electronics, computer science, mechanical
+                engineering, and more.
               </p>
               <Link href="/forms">
                 <button className="px-6 py-2 bg-blue-500 text-white rounded-lg mt-7">
@@ -105,12 +106,12 @@ const page = () => {
             </div>
 
             <div className="w-full bg-blue-100 p-3 rounded-lg">
-              <h1 className="text-xl font-semibold mb-2">Disclaimer</h1>
+              <h1 className="text-xl font-semibold mb-2">Scientist 'C'</h1>
               <p className="mb-2">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Voluptate, corrupti odit esse quisquam, debitis ab maxime ipsum
-                sint hic error, asperiores exercitationem earum aspernatur
-                suscipit! Ipsa voluptates voluptatem illum tempora?
+                This position is typically recruited for experienced
+                professionals with a few years of relevant experience. It
+                involves more responsibility and leadership roles in research
+                and development projects.
               </p>
               <Link href="/forms">
                 <button className="px-6 py-2 bg-blue-500 text-white rounded-lg mt-7">
@@ -121,12 +122,12 @@ const page = () => {
           </div>
           <div className="mb-3 lg:mb-0 w-full lg:w-1/3 flex flex-col gap-3">
             <div className="w-full bg-blue-100 p-3 rounded-lg">
-              <h1 className="text-xl font-semibold mb-2">Disclaimer</h1>
+              <h1 className="text-xl font-semibold mb-2">Engineer 'B'</h1>
               <p className="mb-2">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Voluptate, corrupti odit esse quisquam, debitis ab maxime ipsum
-                sint hic error, asperiores exercitationem earum aspernatur
-                suscipit! Ipsa voluptates voluptatem illum tempora?
+                This position is specifically for engineers who want to work in
+                the design and development of defense equipment and systems. It
+                requires strong engineering skills and knowledge of relevant
+                technologies.
               </p>
               <Link href="/forms">
                 <button className="px-6 py-2 bg-blue-500 text-white rounded-lg mt-7">
@@ -135,12 +136,14 @@ const page = () => {
               </Link>
             </div>
             <div className="w-full bg-blue-100 p-3 rounded-lg">
-              <h1 className="text-xl font-semibold mb-2">Disclaimer</h1>
+              <h1 className="text-xl font-semibold mb-2">
+                Junior Research Fellow (JRF)
+              </h1>
               <p className="mb-2">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Voluptate, corrupti odit esse quisquam, debitis ab maxime ipsum
-                sint hic error, asperiores exercitationem earum aspernatur
-                suscipit! Ipsa voluptates voluptatem illum tempora?
+                This is a research position for postgraduate students or fresh
+                PhDs who want to pursue research in a specific area related to
+                defense and security. It offers opportunities to work with
+                experienced scientists.
               </p>
               <Link href="/forms">
                 <button className="px-6 py-2 bg-blue-500 text-white rounded-lg mt-7">

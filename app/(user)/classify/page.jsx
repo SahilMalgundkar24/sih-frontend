@@ -47,7 +47,7 @@ const BulkFileUploader = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/final/bulk/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/final/bulk`,
         formData
       );
 
@@ -62,15 +62,44 @@ const BulkFileUploader = () => {
   };
 
   return (
-    <div className="p-5 w-full">
-      <Navbar />
+    <div className="p-5 w-full poppins">
+      <div className="hidden w-full h-auto py-2 lg:flex items-center justify-between">
+        <div className="flex justify-start items-center lg:mb-0 mb-5">
+          <div className="">
+            <img className="w-[100%] lg:w-[70%]" src="/images/drdologo1.png" />
+          </div>
+          <div>
+            <img className="w-[80%]" src="/images/drdologo2.png" />
+          </div>
+        </div>
+        <div>
+          <img className="w-[25%]" src="/images/satyamev.png" />
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <img className="h-[50px] w-[80%]" src="/images/flag.png" />
+        </div>
+      </div>
+      <div className="py-5 w-full items-center flex flex-col lg:hidden">
+        <div className="flex w-full justify-between">
+          <img className="w-[20%]" src="/images/drdologo1.png" />
+          <img className="w-[50%]" src="/images/drdologo2.png" />
+          <img className="w-[15%]" src="/images/satyamev.png" />
+        </div>
+      </div>
+      <div className="pt-3 pb-7">
+        <Navbar />
+      </div>
 
       {/* Drag-and-Drop Area */}
       {!classificationResults && (
         <div
           {...getRootProps()}
-          className={`w-full max-w-4xl mx-auto border-2 border-dashed rounded-lg p-8 text-center transition-colors duration-300 ${isDragActive ? "bg-gray-100 border-blue-500" : "bg-gray-50 border-gray-300"
-            }`}
+          className={`w-full max-w-5xl mx-auto border-2 border-dashed rounded-lg p-8 text-center transition-colors duration-300 ${
+            isDragActive
+              ? "bg-gray-100 border-blue-500"
+              : "bg-gray-50 border-gray-300"
+          }`}
         >
           <input {...getInputProps()} />
           <div className="flex flex-col items-center gap-4">
@@ -97,8 +126,8 @@ const BulkFileUploader = () => {
 
       {/* File Preview */}
       {files.length > 0 && !classificationResults && (
-        <div className="mt-5 w-full max-w-4xl mx-auto">
-          <h4 className="text-xl font-semibold mb-3">Files Selected:</h4>
+        <div className="mt-5 w-full max-w-5xl mx-auto">
+          <h4 className="text-2xl font-semibold mb-3">Files Selected:</h4>
           <ul className="list-disc list-inside">
             {files.map((file, index) => (
               <li key={index} className="text-gray-700">
@@ -145,38 +174,38 @@ const BulkFileUploader = () => {
                           </ReactMarkdown>
                         </div>
 
-                        {/* File preview */}
-                        <div className="flex items-center gap-4">
-                          <button
-                            className={`px-4 py-2 rounded-lg text-white ${getClassStyle(
-                              result.class
-                            )}`}
+                    {/* File preview */}
+                    <div className="flex items-center gap-4">
+                      <button
+                        className={`px-4 py-2 rounded-lg text-white ${getClassStyle(
+                          result.class
+                        )}`}
+                      >
+                        {result.class}
+                      </button>
+                      <div className="w-full md:w-40">
+                        {files[index].type.startsWith("image/") ? (
+                          <img
+                            src={URL.createObjectURL(files[index])}
+                            className="w-full h-auto border rounded-md"
+                          />
+                        ) : (
+                          <a
+                            href={URL.createObjectURL(files[index])}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 underline"
                           >
-                            {result.class}
-                          </button>
-                          <div className="w-full md:w-40">
-                            {files[index].type.startsWith("image/") ? (
-                              <img
-                                src={URL.createObjectURL(files[index])}
-                                className="w-full h-auto border rounded-md"
-                              />
-                            ) : (
-                              <a
-                                href={URL.createObjectURL(files[index])}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-600 underline"
-                              >
-                                View Document
-                              </a>
-                            )}
-                          </div>
-                        </div>
+                            View Document
+                          </a>
+                        )}
                       </div>
-                    ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
